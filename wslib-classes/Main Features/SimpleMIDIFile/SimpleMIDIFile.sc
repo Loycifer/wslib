@@ -901,7 +901,7 @@ SimpleMIDIFile  {
 	addMetaEvent { |event, sort = true|
 		event = event ? [0, 0, \text, "added text"];  
 		metaEvents = metaEvents.add( event );
-		if(sort && this.sortOnAdd) { this.sortMetaEvents; }
+		if(sort) { this.sortMetaEvents; }
 		}
 
 	addNote { |noteNumber = 64, velo = 64, startTime = 0, dur = 1, upVelo, channel=0, track=0, 
