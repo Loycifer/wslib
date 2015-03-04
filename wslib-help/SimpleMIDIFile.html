@@ -273,6 +273,11 @@ span.Apple-tab-span {white-space:pre}
 <p class="p2"><span class="Apple-tab-span">	</span><b>float</b></p>
 <p class="p2"><b><span class="Apple-tab-span">	</span></b>pitchbend stored as floating point values (-1.0 - 1.0)</p>
 <p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><b>sortOnAdd</b></p>
+<p class="p2">a boolean specifying whether array of midi events should be sorted when adding midi events. </p>
+<p class="p2">Default is value 'true'.  Disabling sort can speed up manipulation of large SimpleMIDIFile </p>
+<p class="p2">objects.  If sortOnAdd is set to 'false', be sure to call the <b>sortMIDIEvents</b> method after adding events.</p>
+<p class="p3"><br></p>
 <p class="p3"><br></p>
 <p class="p11"><b><span class="s8">Methods</span></b></p>
 <p class="p13"><br></p>
