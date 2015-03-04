@@ -57,6 +57,7 @@ SimpleMIDIFile  {
 	var	<>theCmd, <>theChan, <>numbytes, <>theTrackNumber, <>curTime; // for read/write
 	
 	var <pitchBendMode = \int8; // no conversion needed for this mode (default; do not change here) 
+	var <>sortOnAdd = true; 
 	
 	*new { arg pathName; 
 		^super.new.pathName_(pathName).init;
@@ -865,12 +866,12 @@ SimpleMIDIFile  {
 	addMIDIEvent { |event, sort = true|   /// must have correct format
 		event = event ? [0, 0, \noteOn, 0, 64, 64];  
 		midiEvents = midiEvents.add( event );
-		if(sort) { this.sortMIDIEvents; }
+		if(sort && this.sortOnAdd) { this.sortMIDIEvents; }
 		}
 		
 	addAllMIDIEvents { |events, sort = true|
 		events.do({ |event| this.addMIDIEvent( event, false ); });
-		if(sort) { this.sortMIDIEvents; };
+		if(sort && this.sortOnAdd) { this.sortMIDIEvents; };
 		}
 		
 	addMIDIEventToTrack { |event, track = 0, sort = true| // [absTime, type, channel, ... data]
@@ -880,7 +881,7 @@ SimpleMIDIFile  {
 	
 	addAllMIDIEventsToTrack { |events, track = 0, sort = true|
 		events.do({ |event| this.addMIDIEventToTrack( event, track, false ); });
-		if(sort) { this.sortMIDIEvents; };
+		if(sort && this.sortOnAdd) { this.sortMIDIEvents; };
 		}
 		
 	addMIDITypeEvent { |type = \cc, channel = 0, args, absTime = 0, track = 0, sort=true|
@@ -894,13 +895,13 @@ SimpleMIDIFile  {
 		 args.do({ |argsItem, i|
 		 	this.addMIDIEvent( [ track, absTime.wrapAt(i), type, channel ] ++ argsItem, false )
 		 	});
-		if(sort) { this.sortMIDIEvents; };
+		if(sort && this.sortOnAdd) { this.sortMIDIEvents; };
 		}
 		 
 	addMetaEvent { |event, sort = true|
 		event = event ? [0, 0, \text, "added text"];  
 		metaEvents = metaEvents.add( event );
-		if(sort) { this.sortMetaEvents; }
+		if(sort && this.sortOnAdd) { this.sortMetaEvents; }
 		}
 
 	addNote { |noteNumber = 64, velo = 64, startTime = 0, dur = 1, upVelo, channel=0, track=0, 
